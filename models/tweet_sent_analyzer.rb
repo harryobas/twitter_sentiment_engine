@@ -64,16 +64,6 @@ class SentimentAnalyzer
     self.df[:sentiment].select{|s| s == :neutral}.count
   end
 
-  def get_positive_sentiments
-    pos_sent = self.df[:sentiment].select{|s| s == :positive}
-    positives = pos_sent.map{|x| [pos_sent.index(x), x]}
-    positives.to_h
-  end
-
-  def get_negative_sentiments
-    self.df[:sentiments].select{|s| s == :negative}
-  end
-
   def get_number_of_tweets
     self.df[:tweet_text].count
   end

@@ -2,7 +2,7 @@ require 'sinatra'
 require_relative 'models/tweet_sent_analyzer'
 
 require 'sinatra/reloader' if development?
-require 'rest-client'
+
 
 enable :run, :sessions
 
@@ -21,20 +21,6 @@ get '/sentiment/:name' do
   @sentiment_data = SentimentExtractor.new(twts).measure_tweet_sentiment
   @analyzer = SentimentAnalyzer.new(@sentiment_data)
   erb :index
-end
-
-get '/sentiment/:name/positive' do
-  twt_ext = TweetExtractor.new params[:name]
-  twts = twt_ext.get_tweets
-  sentiment_data = SentimentExtractor.new(twts).measure_tweet_sentiment
-  sent_data = SentimentAnalyzer.new(sentiment_data)
-  pos_sent = sent_data.get_positive_sentiments
-  MultiJson.dump(pos_sent, :pretty => true)
-end
-
-get '/sentiments/:name/negative' do
-  neg_sent = get_sentiment_data(params[:name]).get_negative_sentiments
-  neg_sent.to_json
 end
 
 __END__
