@@ -1,0 +1,9 @@
+require 'twitter'
+require 'sentimental'
+require 'dm-core'
+require 'dm-migrations'
+require 'daru'
+require 'yaml'
+require 'reportbuilder'
+require 'erb'
+DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
